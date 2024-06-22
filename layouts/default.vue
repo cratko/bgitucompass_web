@@ -22,7 +22,13 @@ setTimeout(() => {
 </script>
 
 <template>
-
+    <transition>
+        <Preloader v-if="loading"></Preloader>
+      </transition> 
+      <transition>
+        <NuxtPage v-model="loading"/>
+      </transition>
+    
 </template>
 
 <style>
