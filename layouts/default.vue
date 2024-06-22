@@ -1,17 +1,4 @@
-<script setup>
-
-onMounted(() => {
-    const plugin = document.createElement("script");
-    plugin.setAttribute(
-      "src",
-      "//api.myplugincom/widget/mykey.js"
-    );
-    plugin.async = true;
-    document.head.appendChild(plugin);
-  }
-
-  const tg = window.Telegram.WebApp;
-});
+<script setup lang="ts">
 
 // Init Nuxt Object
 const nuxtApp = useNuxtApp();
@@ -32,12 +19,13 @@ nuxtApp.hook("page:start", () => {
 //console.log(data.value);
 
 nuxtApp.hook("page:finish", () => {
-    if (typeof tg != 'undefined') {
+    if (typeof window.Telegram.WebApp != 'undefined') {
+        const tg = window.Telegram.WebApp;
+        console.log(tg.initDataUnsafe)
         setTimeout(() => {      
             loading.value = false;
         }, preloader_delay);
     }
-    console.log(window.telegram)
 });
 
 </script>
