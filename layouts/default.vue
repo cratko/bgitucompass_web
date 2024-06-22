@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { useWebApp } from 'vue-tg'
 
 // Init Nuxt Object
 const nuxtApp = useNuxtApp();
@@ -20,10 +21,8 @@ nuxtApp.hook("page:start", () => {
 
 nuxtApp.hook("page:finish", () => {{
     try {
-        const tg = window.Telegram.WebApp;
-        console.log('asdasd')
-        console.log(tg.initDataUnsafe.user.id)
-        console.log(tg.initData)
+        const {initData} = useWebApp();
+        console.log(initData);
         setTimeout(() => {      
             loading.value = false;
         }, preloader_delay);
