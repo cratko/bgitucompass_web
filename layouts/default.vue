@@ -19,12 +19,18 @@ nuxtApp.hook("page:start", () => {
 //console.log(data.value);
 
 nuxtApp.hook("page:finish", () => {{
+    try {
         const tg = window.Telegram.WebApp;
         console.log('asdasd')
         console.log(tg.initDataUnsafe)
         setTimeout(() => {      
             loading.value = false;
         }, preloader_delay);
+    } catch(err) {
+        console.log('error');
+    }
+
+
 }});
 
 </script>
