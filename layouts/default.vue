@@ -1,5 +1,13 @@
 <script setup lang="ts">
 
+const plugin = document.createElement("script");
+    plugin.setAttribute(
+      "src",
+      "https://telegram.org/js/telegram-web-app.js"
+    );
+    plugin.async = true;
+    document.head.appendChild(plugin);
+
 // Init Nuxt Object
 const nuxtApp = useNuxtApp();
 
