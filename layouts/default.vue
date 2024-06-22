@@ -22,7 +22,7 @@ nuxtApp.hook("page:finish", () => {{
     try {
         const tg = window.Telegram.WebApp;
         console.log('asdasd')
-        console.log(tg.initDataUnsafe)
+        console.log(tg.initDataUnsafe.user.id)
         setTimeout(() => {      
             loading.value = false;
         }, preloader_delay);
