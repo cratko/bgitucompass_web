@@ -4,7 +4,7 @@
         <v-col class="text-subtitle-1 text-center" cols="12">
           <NuxtImg 
           preload 
-          sizes="30vw sm:20vw md:20vw"
+          sizes="20vw sm:20vw md:20vw"
           src="/logo.png"/>
         </v-col>
         <v-col cols="6">

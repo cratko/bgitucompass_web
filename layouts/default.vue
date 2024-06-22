@@ -31,7 +31,7 @@ nuxtApp.hook("page:start", () => {
 
 //console.log(data.value);
 nuxtApp.hook("page:finish", () => {
-    if (typeof window.telegram.WebApp != 'undefined') {
+    if (typeof window.Telegram.WebApp != 'undefined') {
         setTimeout(() => {      
             loading.value = false;
         }, preloader_delay);
