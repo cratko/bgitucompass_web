@@ -1,18 +1,18 @@
-<script setup lang="ts">
+<script setup>
 
-import {onMounted} from 'vue'
-// Init telegram Script
 onMounted(() => {
-const plugin = document.createElement("script");
-plugin.setAttribute(
-    "src",
-    "https://telegram.org/js/telegram-web-app.js"
-);
-plugin.async = true;
-document.head.appendChild(plugin);
+    const plugin = document.createElement("script");
+    plugin.setAttribute(
+      "src",
+      "//api.myplugincom/widget/mykey.js"
+    );
+    plugin.async = true;
+    document.head.appendChild(plugin);
+  }
+
+  const tg = window.Telegram.WebApp;
 });
 
- 
 // Init Nuxt Object
 const nuxtApp = useNuxtApp();
 
@@ -30,8 +30,9 @@ nuxtApp.hook("page:start", () => {
 //const { data, error, execute, refresh } = await useFetch('http://5.42.74.97/getGroupIDByTGID?telegramID=451469272')
 
 //console.log(data.value);
+
 nuxtApp.hook("page:finish", () => {
-    if (typeof window.Telegram.WebApp != 'undefined') {
+    if (typeof tg != 'undefined') {
         setTimeout(() => {      
             loading.value = false;
         }, preloader_delay);
