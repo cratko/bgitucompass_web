@@ -25,9 +25,7 @@ setTimeout(() => {
     <transition>
         <Preloader v-if="loading"></Preloader>
       </transition> 
-      <transition>
-        <NuxtPage v-model="loading"/>
-      </transition>
+    <NuxtPage v-model="loading"/>
     
 </template>
 
