@@ -1,5 +1,18 @@
 <script setup lang="ts">
 
+import {onMounted} from 'vue'
+// Init telegram Script
+onMounted(() => {
+const plugin = document.createElement("script");
+plugin.setAttribute(
+    "src",
+    "https://telegram.org/js/telegram-web-app.js"
+);
+plugin.async = true;
+document.head.appendChild(plugin);
+});
+
+ 
 // Init Nuxt Object
 const nuxtApp = useNuxtApp();
 
@@ -13,10 +26,17 @@ const preloader_delay = 1000;
 nuxtApp.hook("page:start", () => {
     loading.value = true;
 });
+
+//const { data, error, execute, refresh } = await useFetch('http://5.42.74.97/getGroupIDByTGID?telegramID=451469272')
+
+//console.log(data.value);
 nuxtApp.hook("page:finish", () => {
-setTimeout(() => {      
-    loading.value = false;
-}, preloader_delay);
+    if (typeof window.telegram != 'undefined') {
+        setTimeout(() => {      
+            loading.value = false;
+        }, preloader_delay);
+    }
+    console.log(window.telegram)
 });
 
 </script>
