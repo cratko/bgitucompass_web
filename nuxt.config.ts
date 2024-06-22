@@ -28,7 +28,7 @@ export default defineNuxtConfig({
     head: {
       script: [
         {
-          src: "https://telegram.org/js/telegram-web-app.js",
+          src: "/js/telegram-web-app.js",
         },
       ],
     },
