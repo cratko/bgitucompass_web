@@ -27,7 +27,7 @@ nuxtApp.hook("page:finish", () => {{
             loading.value = false;
         }, preloader_delay);
     } catch(err) {
-        console.log('error');
+        console.log(err);
     }
 
 
