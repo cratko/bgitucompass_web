@@ -8,13 +8,27 @@
           src="/logo.png"/>
         </v-col>
         <v-col cols="6">
-          <v-progress-linear
+          <transition>
+            <v-progress-linear
             color="blue"
             height="6"
             indeterminate
             rounded
           ></v-progress-linear>
+          </transition>
         </v-col>
       </v-row>
     </v-container>
 </template>
+
+<style scoped>
+.v-enter-active,
+.v-leave-active {
+transition: opacity 0.6s ease;
+}
+
+.v-enter-from,
+.v-leave-to {
+opacity: 0;
+}
+</style>
