@@ -31,26 +31,76 @@ currentDate = new Date().toLocaleString("ru", options);
             :value="n"
           >{{n}} чт</v-tab>
         </v-tabs>
+        <v-tabs-window v-model="tab">
+          <v-tabs-window-item value="1">
+            One
+            <v-card-text class="text-center">
+              <v-btn
+                :disabled="!length"
+                text="Remove Tab"
+                variant="text"
+                @click="length--"
+              ></v-btn>
+        
+              <v-divider
+                class="mx-4"
+                vertical
+              ></v-divider>
+        
+              <v-btn
+                text="Add Tab"
+                variant="text"
+                @click="length++"
+              ></v-btn>
+            </v-card-text>
+          </v-tabs-window-item>
+          <v-tabs-window-item value="2">
+            Two
+            <v-card-text class="text-center">
+              <v-btn
+                :disabled="!length"
+                text="Remove Tab"
+                variant="text"
+                @click="length--"
+              ></v-btn>
+        
+              <v-divider
+                class="mx-4"
+                vertical
+              ></v-divider>
+        
+              <v-btn
+                text="Add Tab"
+                variant="text"
+                @click="length++"
+              ></v-btn>
+            </v-card-text>
+          </v-tabs-window-item>
+          <v-tabs-window-item value="3">
+            Three
+            <v-card-text class="text-center">
+              <v-btn
+                :disabled="!length"
+                text="Remove Tab"
+                variant="text"
+                @click="length--"
+              ></v-btn>
+        
+              <v-divider
+                class="mx-4"
+                vertical
+              ></v-divider>
+        
+              <v-btn
+                text="Add Tab"
+                variant="text"
+                @click="length++"
+              ></v-btn>
+            </v-card-text>
+          </v-tabs-window-item>
+        </v-tabs-window>
     
-        <v-card-text class="text-center">
-          <v-btn
-            :disabled="!length"
-            text="Remove Tab"
-            variant="text"
-            @click="length--"
-          ></v-btn>
-    
-          <v-divider
-            class="mx-4"
-            vertical
-          ></v-divider>
-    
-          <v-btn
-            text="Add Tab"
-            variant="text"
-            @click="length++"
-          ></v-btn>
-        </v-card-text>
+
       </v-card>
 </template>
 
