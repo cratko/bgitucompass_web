@@ -20,7 +20,7 @@ currentDate = new Date().toLocaleString("ru", options);
         <h1>{{currentDate}}</h1>
     </div>
     <v-card>
-        <v-tabs-slider
+        <v-tabs
           v-model="tab"
           grow
         >
@@ -30,75 +30,14 @@ currentDate = new Date().toLocaleString("ru", options);
             :text="`${n}`"
             :value="n"
           >{{n}} чт</v-tab>
-        </v-tabs-slider>
-        <v-tabs-window v-model="tab">
-          <v-tabs-window-item value="1">
-            One
-            <v-card-text class="text-center">
-              <v-btn
-                :disabled="!length"
-                text="Remove Tab"
-                variant="text"
-                @click="length--"
-              ></v-btn>
-        
-              <v-divider
-                class="mx-4"
-                vertical
-              ></v-divider>
-        
-              <v-btn
-                text="Add Tab"
-                variant="text"
-                @click="length++"
-              ></v-btn>
-            </v-card-text>
-          </v-tabs-window-item>
-          <v-tabs-window-item value="2">
-            Two
-            <v-card-text class="text-center">
-              <v-btn
-                :disabled="!length"
-                text="Remove Tab"
-                variant="text"
-                @click="length--"
-              ></v-btn>
-        
-              <v-divider
-                class="mx-4"
-                vertical
-              ></v-divider>
-        
-              <v-btn
-                text="Add Tab"
-                variant="text"
-                @click="length++"
-              ></v-btn>
-            </v-card-text>
-          </v-tabs-window-item>
-          <v-tabs-window-item value="3">
-            Three
-            <v-card-text class="text-center">
-              <v-btn
-                :disabled="!length"
-                text="Remove Tab"
-                variant="text"
-                @click="length--"
-              ></v-btn>
-        
-              <v-divider
-                class="mx-4"
-                vertical
-              ></v-divider>
-        
-              <v-btn
-                text="Add Tab"
-                variant="text"
-                @click="length++"
-              ></v-btn>
-            </v-card-text>
-          </v-tabs-window-item>
-        </v-tabs-window>
+        </v-tabs>
+        <v-window v-model="tab" show-arrows>
+          <v-window-item v-for="n in length" :key="n" value="n">
+            <v-card class="d-flex justify-center align-center" height="200px">
+              <span class="text-h2">Card {{ n }}</span>
+            </v-card>
+          </v-window-item>
+        </v-window>
     
 
       </v-card>
