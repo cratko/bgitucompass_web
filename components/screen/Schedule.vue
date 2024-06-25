@@ -20,7 +20,7 @@ currentDate = new Date().toLocaleString("ru", options);
         <h1>{{currentDate}}</h1>
     </div>
     <v-card>
-        <v-tabs
+        <v-tabs-slider
           v-model="tab"
           grow
         >
@@ -30,7 +30,7 @@ currentDate = new Date().toLocaleString("ru", options);
             :text="`${n}`"
             :value="n"
           >{{n}} чт</v-tab>
-        </v-tabs>
+        </v-tabs-slider>
         <v-tabs-window v-model="tab">
           <v-tabs-window-item value="1">
             One
