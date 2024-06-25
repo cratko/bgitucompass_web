@@ -29,12 +29,12 @@ currentDate = new Date().toLocaleString("ru", options);
             :key="n"
             :text="`${n}`"
             :value="n"
-          >{{n}} чт</v-tab>
+          >{{n}} {{tab}}</v-tab>
         </v-tabs>
         <v-window v-model="tab" show-arrows>
-          <v-window-item v-for="n in length" :key="n" value="n">
+          <v-window-item v-for="n in length" :key="n" :value="n">
             <v-card class="d-flex justify-center align-center" height="200px">
-              <span class="text-h2">Card {{ n }}</span>
+              <span class="text-h2">Card {{ n }} {{tab}}</span>
             </v-card>
           </v-window-item>
         </v-window>
