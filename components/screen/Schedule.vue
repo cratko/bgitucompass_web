@@ -261,7 +261,7 @@ watch(pickedDayFormat, () => {
           ></v-skeleton-loader>
 
 
-          <v-scroll-y-transition v-for="(lesson, i) in lessons" :key="i" hide-on-leave="true"> 
+          <v-scroll-y-transition v-for="(lesson, i) in lessons" :key="i" hide-on-leave=true> 
             <ScheduleLessonCard v-show="!loading_lessons" v-model="lessons[i]"/>
           </v-scroll-y-transition>
           

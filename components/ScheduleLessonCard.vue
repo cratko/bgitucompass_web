@@ -11,7 +11,6 @@
 
 </script>
 <template>
-    
     <v-card class="mx-2 mt-4 mr-md-20 rounded-xl" variant="tonal">
 
       <v-card-text>
@@ -38,7 +37,6 @@
         </div>
       </v-card-text>
     </v-card>
-
   </template>
 
 <style>

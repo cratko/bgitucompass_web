@@ -19,15 +19,34 @@ nuxtApp.hook("page:start", () => {
 
 //console.log(data.value);
 
+let noGroup = ref(false);
+
 nuxtApp.hook("page:finish", () => {{
     try {
         const tg = window.Telegram.WebApp;
         tg.expand()
-        //console.log(tg.initDataUnsafe.user.id);
+        try{
+            const userId = tg.initDataUnsafe.user.id;
+            await fetch('https://dev.bgitu-compass.ru/getGroupIDByTGID?telegramID=' + userId)
+            .then(response => response.json())
+            .then(data => {
+            
+                if (data != null) {
+                    console.log('YES');
+                }
 
-        setTimeout(() => {      
+            });
+
+            setTimeout(() => {      
             loading.value = false;
-        }, preloader_delay);
+            }, preloader_delay);
+        
+        } catch {
+            noGroup.value = true;
+        }
+        
+
+
     } catch(err) {
         console.log(err);
     }
@@ -46,7 +65,7 @@ nuxtApp.hook("page:finish", () => {{
     height="2vh"
     prominent
   >
-    Выберите группу в боте БГИТУ Компас и перезагрузите приложение.
+    Вы не обнаружены в системе. Пожалуйста, Выберите группу в боте БГИТУ Компас и перезагрузите приложение.
   </v-alert>
     <transition>
         <Preloader v-if="loading"></Preloader>
