@@ -154,7 +154,7 @@ watch(pickedWeek,  (newWeek, oldWeek) => {
 let subjectsById = ref([])
 let groupId = "77";
 
-let loading = ref(true);
+let loading_lessons = ref(true);
 let lessons = ref(null);
 
 await fetch('https://dev.bgitu-compass.ru/subjects?groupId=' + groupId)
@@ -169,7 +169,7 @@ await fetch('https://dev.bgitu-compass.ru/subjects?groupId=' + groupId)
 
 
 setTimeout(() => {      
-            loading.value = false;
+            loading_lessons.value = false;
         }, 5000);
 
 
@@ -192,7 +192,7 @@ watch(pickedDayFormat, () => {
   }
 
   console.log(pickedDayFormat_new)
-  loading.value = true;
+  loading_lessons.value = true;
 
   fetch('https://dev.bgitu-compass.ru/lessons?groupId=' + groupId + '&startAt=' + pickedDayFormat_new + '&endAt=' + pickedDayFormat_new)
     .then(response => response.json())
@@ -209,7 +209,7 @@ watch(pickedDayFormat, () => {
     });
 
     setTimeout(() => {      
-            loading.value = false;
+            loading_lessons.value = false;
         }, 500);
     /*
     for(let i = 0; i < data.length; i++) {
@@ -248,22 +248,22 @@ watch(pickedDayFormat, () => {
         </v-tab>
       </v-tabs>
       <v-window v-model="pickedDayFormat">
-        <v-window-item v-for="day in daysOfWeek.get(pickedWeek)" :key="getEnDate(day)" :value="getEnDate(day)" transition="false">
+        <v-window-item v-for="day in daysOfWeek.get(pickedWeek)" :key="getEnDate(day)" :value="getEnDate(day)" transition="v-fade-transition" reverse-transition="v-fade-transition">
         
 
           <v-card class="scheduleCard mx-auto" variant="text">
 
-           
-              <v-skeleton-loader
-              v-if="loading"
-               class="lessonSkeleton"
-               v-for="i in [1, 2, 3, 4, 5, 6, 7]" 
-              type="list-item-two-line"
-            ></v-skeleton-loader>
+            <v-skeleton-loader
+            v-show="loading_lessons"
+             class="lessonSkeleton"
+             v-for="i in [1, 2, 3, 4, 5]" 
+            type="list-item-two-line"
+          ></v-skeleton-loader>
 
-          <v-scroll-y-reverse-transition v-for="(lesson, i) in lessons" :key="i" hide-on-leave="true"> 
-            <ScheduleLessonCard v-show="!loading" v-model="lessons[i]"/>
-          </v-scroll-y-reverse-transition>
+
+          <v-scroll-y-transition v-for="(lesson, i) in lessons" :key="i" hide-on-leave="true"> 
+            <ScheduleLessonCard v-show="!loading_lessons" v-model="lessons[i]"/>
+          </v-scroll-y-transition>
           
           </v-card>
 
