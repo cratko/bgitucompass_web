@@ -32,7 +32,7 @@ nuxtApp.hook("page:finish", () => {{
             .then(data => {
             
                 if (data != null) {
-                    console.log('YES');
+                    console.log(data['groupId']);
                 }
 
             });
