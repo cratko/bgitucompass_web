@@ -1,6 +1,7 @@
 
 <script setup>
 import {ref, reactive} from 'vue';
+import ScheduleLessonCard from '../ScheduleLessonCard.vue';
 
 (function() {
     var days = ['вск','пн','вт','ср','чт','пт','сб'];
@@ -10,10 +11,17 @@ import {ref, reactive} from 'vue';
     Date.prototype.getMonthName = function() {
         return months[ this.getMonth() ];
     };
+
     Date.prototype.getDayName = function() {
         return days[ this.getDay() ];
     };
 })();
+
+function getMonthNameById(id) {
+  var months = ['январь','февраль','март','апрель','май','июнь','июль','август','сентябрь','октябрь','ноябрь','декабрь'];
+
+  return months[id-1];
+}
 
 function getEnDate(date) {
   return date.toLocaleDateString("en")
@@ -143,6 +151,43 @@ watch(pickedWeek,  (newWeek, oldWeek) => {
 }, {once: true})
 })
 
+let subjectsById = []
+
+fetch('http://api.bgitu-compass.ru/subjects?groupId=101')
+    .then(response => response.json())
+    .then(data => subjectsById.push(data));
+
+console.log(subjectsById)
+let loading = ref(true);
+let lessons = ref(null);
+
+watch(pickedDayFormat, () => {
+  loading.value = true;
+  let data2 = [];
+  fetch('http://api.bgitu-compass.ru/lessons?groupId=101&startAt=2024-05-19&endAt=2024-05-20')
+    .then(response => response.json())
+    .then(data => {
+      console.log(data)
+      for( let i = 0; i < data.length; i++ ) {
+        data[i]['subjectName'] = subjectsById[0].find(x => x.id === data[i]['subjectId']).name
+      }
+      data.sort(function(a, b) {
+          return a['startAt'].split(":")[0] - b['startAt'].split(":")[0]
+      });
+      lessons = ref(data)
+    });
+
+    console.log(lessons)
+    loading.value = false;
+    /*
+    for(let i = 0; i < data.length; i++) {
+      data[i]['subjectName'] = subjectsById[0].find(x => x.id === data[i]['subjectId']).name
+    }*/
+
+    
+})
+
+
 </script>
 
 <template>
@@ -152,7 +197,7 @@ watch(pickedWeek,  (newWeek, oldWeek) => {
     <v-window v-model="pickedWeek">
       <v-window-item v-for="[key] in daysOfWeek" :key="key" :value="key">
         <div class="currentDateChip d-flex justify-center">
-          <h1 class="text-md-h4"> {{ pickedWeek == key}} {{ key }} {{ pickedWeek }} </h1>
+          <h1 class="text-md-h4"> {{ getMonthNameById(pickedDayFormat.split("/")[0]) }} </h1>
         </div>
         <v-tabs
         v-model="pickedDayFormat"
@@ -172,9 +217,22 @@ watch(pickedWeek,  (newWeek, oldWeek) => {
       </v-tabs>
       <v-window v-model="pickedDayFormat">
         <v-window-item v-for="day in daysOfWeek.get(pickedWeek)" :key="getEnDate(day)" :value="getEnDate(day)">
-          <v-card class="d-flex justify-center align-center" height="200px">
-            <span class="text-h2">Card {{pickedDayFormat}}</span>
+        
+
+          <v-card class="scheduleCard mx-auto" variant="text">
+
+              <v-skeleton-loader
+              v-if="loading"
+              v-for="i in [1, 2, 3, 4, 5, 6, 7]"
+              class="lessonSkeleton"
+              type="list-item-two-line"
+            ></v-skeleton-loader>
+          <v-scroll-y-reverse-transition v-for="(lesson, i) in lessons" :key="i"> 
+            <ScheduleLessonCard v-if="!loading" v-model="lessons[i]"/>
+          </v-scroll-y-reverse-transition>
+          
           </v-card>
+
         </v-window-item>
       </v-window>
     </v-window-item>
@@ -210,5 +268,13 @@ watch(pickedWeek,  (newWeek, oldWeek) => {
 
 .v-tab.v-tab.v-btn {
   min-width: 0px;
+}
+
+.scheduleCard {
+  background-color: #121212;
+}
+
+.lessonSkeleton {
+  background-color: #121212;
 }
 </style>

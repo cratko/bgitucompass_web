@@ -29,7 +29,8 @@ const loading = defineModel();
     <transition>
       <NavBar 
       v-model="activeTab"
-      v-show="!loading"/>
+      v-show="!loading"
+      style="z-index: 20001;"/>
     </transition>
   
 </template>
