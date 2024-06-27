@@ -154,8 +154,9 @@ watch(pickedWeek,  (newWeek, oldWeek) => {
 
 let subjectsById = ref([])
 let groupId = useCookie('groupId');
+groupId = groupId.value;
 
-console.log(groupId)
+console.log(groupId.value)
 let loading_lessons = ref(true);
 let lessons = ref(null);
 

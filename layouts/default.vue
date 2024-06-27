@@ -56,9 +56,10 @@ nuxtApp.hook("page:finish", () => {{
         console.log(err);
     }
 
-
 }});
-
+setTimeout(() => {      
+                    loading.value = false;
+                    }, preloader_delay);
 </script>
 
 <template>
