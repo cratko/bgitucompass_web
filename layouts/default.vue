@@ -27,7 +27,7 @@ nuxtApp.hook("page:finish", () => {{
         tg.expand()
         try{
             const userId = tg.initDataUnsafe.user.id;
-            await fetch('https://dev.bgitu-compass.ru/getGroupIDByTGID?telegramID=' + userId)
+            fetch('https://dev.bgitu-compass.ru/getGroupIDByTGID?telegramID=' + userId)
             .then(response => response.json())
             .then(data => {
             
