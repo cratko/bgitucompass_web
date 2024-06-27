@@ -153,7 +153,7 @@ watch(pickedWeek,  (newWeek, oldWeek) => {
 
 let subjectsById = []
 
-fetch('http://api.bgitu-compass.ru/subjects?groupId=101')
+fetch('https://dev.bgitu-compass.ru/subjects?groupId=101')
     .then(response => response.json())
     .then(data => subjectsById.push(data));
 
@@ -164,7 +164,7 @@ let lessons = ref(null);
 watch(pickedDayFormat, () => {
   loading.value = true;
   let data2 = [];
-  fetch('http://api.bgitu-compass.ru/lessons?groupId=101&startAt=2024-05-19&endAt=2024-05-20')
+  fetch('https://dev.bgitu-compass.ru/lessons?groupId=101&startAt=2024-05-19&endAt=2024-05-20')
     .then(response => response.json())
     .then(data => {
       console.log(data)
