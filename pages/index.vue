@@ -10,7 +10,7 @@ const navigations = [
 ];
 
 const loading = defineModel();
-const group_id = defineModel("group_id");
+
 </script>
 
 <template>
@@ -22,7 +22,7 @@ const group_id = defineModel("group_id");
         v-for="i in navigations" 
         value="activeTab">
             <KeepAlive>
-                <component :is="navigations[activeTab]" v-model:group_id="group_id"/>
+                <component :is="navigations[activeTab]"/>
             </KeepAlive>
         </v-tabs-window-item>
     </v-tabs-window>

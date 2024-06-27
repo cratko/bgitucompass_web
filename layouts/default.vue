@@ -32,8 +32,8 @@ nuxtApp.hook("page:finish", () => {{
             .then(data => {
             
                 if (data['group_id'] != "None") {
-                    let group_id = ref(data['group_id'].toString())
-                    console.log(group_id.value)
+                    const groupId = useCookie('groupId');
+                    groupId.value = data['group_id'];
 
                     setTimeout(() => {      
                     loading.value = false;
@@ -75,7 +75,7 @@ nuxtApp.hook("page:finish", () => {{
     <transition>
         <Preloader v-if="loading"></Preloader>
       </transition> 
-    <NuxtPage v-model="loading" v-model:group_id="group_id"/>
+    <NuxtPage v-model="loading"/>
     
 </template>
 
