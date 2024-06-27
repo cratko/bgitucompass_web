@@ -280,7 +280,7 @@ watch(pickedDayFormat, () => {
 }
 
 .dayOfWeek {
-  gap: 3px;
+  gap: 1px;
 }
 
 .dayOfWeek .dayTitle {

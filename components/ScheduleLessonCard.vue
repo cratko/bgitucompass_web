@@ -6,33 +6,33 @@
       let classroom = lesson.value["classroom"]
       let building = lesson.value['building']
       let teacher = lesson.value['teacher']
-      let startAt = lesson.value['startAt']
-      let endAt = lesson.value['endAt']
+      let startAt = lesson.value['startAt'].split(":")[0] + ":" + lesson.value['startAt'].split(":")[1]
+      let endAt = lesson.value['endAt'].split(":")[0] + ":" + lesson.value['endAt'].split(":")[1]
 
 </script>
 <template>
     
-    <v-card class="mx-5 mt-7 mr-md-20 rounded-xl" variant="tonal">
+    <v-card class="mx-2 mt-4 mr-md-20 rounded-xl" variant="tonal">
 
       <v-card-text>
         <div class="d-flex justify-space-between">
           <div class="d-flex align-center ga-4">
             <div>
-              <p class="text-subtitle-1 font-weight-bold">{{startAt}}</p>
-              <p class="text-caption font-weight-bold text-disabled">{{endAt}}</p>
+              <p class="font-weight-bold startTime">{{startAt}}</p>
+              <p class="font-weight-bold text-disabled endTime">{{endAt}}</p>
             </div>
             <div class="d-flex flex-column">
               <p class="font-weight-black subjectName">
                 {{subjectName}}
               </p>
               <div>
-                <p class="text-caption">{{typeOfLesson}} | {{teacher}}</p>
+                <p class="subt">{{typeOfLesson}} | {{teacher}}</p>
               </div>
             </div>
           </div>
   
           <div> 
-          <v-chip>ауд {{classroom}}, к.{{building}}</v-chip>
+          <v-chip ><p class="chip">ауд {{classroom}}, к.{{building}}</p></v-chip>
           </div>
           
         </div>
@@ -52,6 +52,21 @@
     max-width: 20vw;
 }
 
+.startTime {
+    font-size: 0.8rem;
+}
+
+.endTime {
+    font-size: 0.7rem;
+}
+
+.subt {
+    font-size: 0.7rem;
+}
+
+.chip {
+    font-size: 0.7rem;
+}
 @media (min-width: 750px) { 
     .subjectName {
         font-size: 1rem; 
@@ -69,8 +84,8 @@
 
 @media (max-width: 408px) { 
     .subjectName {
-        font-size: 0.7rem; 
-        max-width: 25vw;
+        font-size: 0.8rem; 
+        max-width: 40vw;
     }
    
 }
