@@ -152,8 +152,11 @@ watch(pickedWeek,  (newWeek, oldWeek) => {
 })
 
 let subjectsById = []
+let groupId = "77";
 
-fetch('https://dev.bgitu-compass.ru/subjects?groupId=101')
+
+
+fetch('https://dev.bgitu-compass.ru/subjects?groupId=' + groupId)
     .then(response => response.json())
     .then(data => subjectsById.push(data));
 
@@ -161,10 +164,30 @@ console.log(subjectsById)
 let loading = ref(true);
 let lessons = ref(null);
 
+
+
 watch(pickedDayFormat, () => {
+  let day_splitted = pickedDayFormat.value.split("/").reverse();
+  [day_splitted[1], day_splitted[2]] = [day_splitted[2], day_splitted[1]];
+
+  let pickedDayFormat_new = "";
+
+  for(let i = 0; i < day_splitted.length; i++) {
+    if (day_splitted[i].length == 1) {
+      pickedDayFormat_new += "0" + day_splitted[i]
+    } else {
+      pickedDayFormat_new += day_splitted[i]
+    }
+
+    if (i != 2) {
+      pickedDayFormat_new += "-"
+    }
+  }
+
+  console.log(pickedDayFormat_new)
   loading.value = true;
-  let data2 = [];
-  fetch('https://dev.bgitu-compass.ru/lessons?groupId=101&startAt=2024-05-19&endAt=2024-05-20')
+
+  fetch('https://dev.bgitu-compass.ru/lessons?groupId=' + groupId + '&startAt=' + pickedDayFormat_new + '&endAt=' + pickedDayFormat_new)
     .then(response => response.json())
     .then(data => {
       console.log(data)
@@ -177,15 +200,16 @@ watch(pickedDayFormat, () => {
       lessons = ref(data)
     });
 
-    console.log(lessons)
-    loading.value = false;
+    setTimeout(() => {      
+            loading.value = false;
+        }, 500);
     /*
     for(let i = 0; i < data.length; i++) {
       data[i]['subjectName'] = subjectsById[0].find(x => x.id === data[i]['subjectId']).name
     }*/
 
     
-})
+}, { immediate: true })
 
 
 </script>
@@ -221,14 +245,16 @@ watch(pickedDayFormat, () => {
 
           <v-card class="scheduleCard mx-auto" variant="text">
 
+           
               <v-skeleton-loader
               v-if="loading"
-              v-for="i in [1, 2, 3, 4, 5, 6, 7]"
-              class="lessonSkeleton"
+               class="lessonSkeleton"
+               v-for="i in [1, 2, 3, 4, 5, 6, 7]" 
               type="list-item-two-line"
             ></v-skeleton-loader>
+
           <v-scroll-y-reverse-transition v-for="(lesson, i) in lessons" :key="i"> 
-            <ScheduleLessonCard v-if="!loading" v-model="lessons[i]"/>
+            <ScheduleLessonCard v-show="!loading" v-model="lessons[i]"/>
           </v-scroll-y-reverse-transition>
           
           </v-card>

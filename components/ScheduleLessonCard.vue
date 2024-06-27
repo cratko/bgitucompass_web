@@ -22,7 +22,7 @@
               <p class="text-caption font-weight-bold text-disabled">{{endAt}}</p>
             </div>
             <div class="d-flex flex-column">
-              <p class="text-h6 font-weight-black">
+              <p class="font-weight-black subjectName">
                 {{subjectName}}
               </p>
               <div>
@@ -41,4 +41,37 @@
 
   </template>
 
-  <style></style>
+<style>
+.subjectName {
+    line-height: 1.5em;
+    max-height: 3em;       /* height is 2x line-height, so two lines will display */
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;  
+    max-width: 20vw;
+}
+
+@media (min-width: 750px) { 
+    .subjectName {
+        font-size: 1rem; 
+    }
+   
+}
+
+@media (min-width: 409px) { 
+    .subjectName {
+        font-size: 0.9rem; 
+        max-width: 35vw;
+    }
+   
+}
+
+@media (max-width: 408px) { 
+    .subjectName {
+        font-size: 0.7rem; 
+        max-width: 25vw;
+    }
+   
+}
+</style>

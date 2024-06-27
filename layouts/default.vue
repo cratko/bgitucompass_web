@@ -37,6 +37,16 @@ nuxtApp.hook("page:finish", () => {{
 </script>
 
 <template>
+    <v-alert
+    border="top"
+    v-if="noGroup"
+    type="warning"
+    variant="outlined"
+    height="2vh"
+    prominent
+  >
+    Выберите группу в боте БГИТУ Компас и перезагрузите приложение.
+  </v-alert>
     <transition>
         <Preloader v-if="loading"></Preloader>
       </transition> 
