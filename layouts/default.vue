@@ -31,15 +31,17 @@ nuxtApp.hook("page:finish", () => {{
             .then(response => response.json())
             .then(data => {
             
-                if (data != null) {
-                    console.log(data);
+                if (data['group_id'] != "None") {
+                    setTimeout(() => {      
+                    loading.value = false;
+                    }, preloader_delay);
+                } else {
+                    noGroup.value = true;
                 }
 
             });
 
-            setTimeout(() => {      
-            loading.value = false;
-            }, preloader_delay);
+
         
         } catch {
             noGroup.value = true;
