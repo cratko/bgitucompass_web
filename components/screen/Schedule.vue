@@ -151,8 +151,9 @@ watch(pickedWeek,  (newWeek, oldWeek) => {
 }, {once: true})
 })
 
+
 let subjectsById = ref([])
-let groupId = "77";
+let groupId = defineModel("group_id");
 
 let loading_lessons = ref(true);
 let lessons = ref(null);
