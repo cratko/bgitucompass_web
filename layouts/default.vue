@@ -32,9 +32,9 @@ nuxtApp.hook("page:finish", () => {{
             .then(data => {
             
                 if (data['group_id'] != "None") {
-                    let group_id = ref(data['group_id'])
-                    console.log(group_id.value)
+                    let group_id = ref(data['group_id'].toString())
                     
+
                     setTimeout(() => {      
                     loading.value = false;
                     }, preloader_delay);
