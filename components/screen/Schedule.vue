@@ -156,7 +156,7 @@ let subjectsById = ref([])
 let groupId = useCookie('groupId');
 groupId = groupId.value;
 
-console.log(groupId.value)
+console.log(groupId)
 let loading_lessons = ref(true);
 let lessons = ref(null);
 
