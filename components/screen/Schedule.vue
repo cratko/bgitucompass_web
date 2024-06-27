@@ -36,8 +36,40 @@ function getDateWeek(date) {
     (currentDate - nextMonday) / (24 * 3600 * 1000) / 7) : 1);
 }
 
-function getWeekFromDaysOfWeek(daysOfWeek, n) {
-    return daysOfWeek.get(pickedWeek).value
+
+function dateFromString(value) {
+  if (typeof(value) == 'undefined') {
+    const [month, day, year] = value.split('/');
+    const newDate = new Date(year, month - 1, day);
+    return (newDate);
+  }
+
+  return value
+}
+
+function getDaysOfWeek(week, year) {
+  // Input validation (optional)
+  week = parseInt(week);
+  year = parseInt(year);
+  if (week < 1 || week > 53 || isNaN(week) || isNaN(year)) {
+    throw new Error("Invalid week number or year");
+  }
+
+  // Calculate the date for the first day of the week
+  const d = new Date(year, 0, 1 + (week - 1) * 7);
+
+  // Adjust to the previous Monday (ISO 8601 standard)
+  d.setDate(d.getDate() - (d.getDay() || 7) + 1);
+
+  // Create an array to store the dates
+  const days = [];
+  for (let i = 0; i < 6; i++) {
+    const day = new Date(d);
+    day.setDate(day.getDate() + i);
+    days.push(day);
+  }
+
+  return days;
 }
 
 var options = {
@@ -56,36 +88,71 @@ const currentDate = curr.toLocaleString("ru", options);
 
 const scheduleLength = 6;
 
-let pickedDay = ref(curr);
-let pickedDayFormat = ref(getEnDate(curr))
-let pickedWeek = ref(getDateWeek(curr));
-console.log(pickedWeek)
+let pickedDayFormat = ref(
+  getEnDate(curr)
+)
 
-let daysOfWeek = reactive(new Map([]))
+console.log(pickedDayFormat.value)
 
-let first = curr.getDate() - curr.getDay(); // First day is the day of the month - the day of the week
-for(let week = 0; week <= 2; week++) {
-  let ff = first - 7 * week
-  let dates = []
-  for(let i = 1; i <= 6; i++) {
-  let date = new Date(curr.setDate(ff+i))
-
-  dates.push(date)
-    }
-  daysOfWeek.set(getDateWeek(dates[0]), dates);
+let pickedWeekSchema = {
+  weekNumber: getDateWeek(curr),
+  year: new Date().getFullYear()
 }
 
+let pickedWeek = ref(pickedWeekSchema.weekNumber.toString() + '-' + pickedWeekSchema.year.toString())
+
+
+const weeks = []
+for (let i = 1; i <= 53; i++) { weeks.push(i) }
+
+// start gen
+function fillDaysOfWeeks(pickedWeek, pickedDayFormat) {
+  let daysOfWeek = new Map([])
+
+  let weekNumber = pickedWeek.value.split("-")[0]
+  let year = pickedWeek.value.split("-")[1]
+
+  for(let i = weekNumber - 1; i <= weekNumber + 1; i++) {
+    let year_ = year;
+    let week_ = i;
+
+    if (i < 1) {
+      year_--;
+      week_ = 53;
+    } else if(i > 53) {
+      year_++;
+      week_ = 1;
+    }
+
+    daysOfWeek.set(week_.toString() + '-' + year_.toString(), getDaysOfWeek(week_, year_));
+ }
+
+  return daysOfWeek
+}
+
+let daysOfWeek = reactive(fillDaysOfWeeks(pickedWeek, pickedDayFormat))
+
+
+watch(pickedWeek,  (newWeek, oldWeek) => {
+  pickedDayFormat.value = getEnDate(daysOfWeek.get(newWeek)[0])
+
+  daysOfWeek = reactive(fillDaysOfWeeks(pickedWeek, pickedDayFormat, daysOfWeek))
+
+  watch(pickedDayFormat, () => {
+  pickedDayFormat.value = getEnDate(daysOfWeek.get(pickedWeek.value)[0])
+}, {once: true})
+})
 
 </script>
 
 <template>
   <client-only placeholder="Loading...">
-
+    <v-no-ssr>
   <v-card>
     <v-window v-model="pickedWeek">
-      <v-window-item v-for="n in daysOfWeek" :key="n[0]" :value="n[0]">
+      <v-window-item v-for="[key] in daysOfWeek" :key="key" :value="key">
         <div class="currentDateChip d-flex justify-center">
-          <h1 class="text-md-h4"> {{ new Date(pickedDay).getMonthName() }} {{ n[0] }} </h1>
+          <h1 class="text-md-h4"> {{ pickedWeek == key}} {{ key }} {{ pickedWeek }} </h1>
         </div>
         <v-tabs
         v-model="pickedDayFormat"
@@ -114,6 +181,7 @@ for(let week = 0; week <= 2; week++) {
     </v-window>
     </v-card>
 
+  </v-no-ssr>
       </client-only>
 </template>
 
