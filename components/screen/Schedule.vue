@@ -151,19 +151,26 @@ watch(pickedWeek,  (newWeek, oldWeek) => {
 }, {once: true})
 })
 
-let subjectsById = []
+let subjectsById = ref([])
 let groupId = "77";
 
-
-
-fetch('https://dev.bgitu-compass.ru/subjects?groupId=' + groupId)
-    .then(response => response.json())
-    .then(data => subjectsById.push(data));
-
-console.log(subjectsById)
 let loading = ref(true);
 let lessons = ref(null);
 
+await fetch('https://dev.bgitu-compass.ru/subjects?groupId=' + groupId)
+    .then(response => response.json())
+    .then(data => {
+      
+      subjectsById.value.push(data)
+      
+      console.log(subjectsById.value)
+
+});
+
+
+setTimeout(() => {      
+            loading.value = false;
+        }, 5000);
 
 
 watch(pickedDayFormat, () => {
@@ -190,9 +197,10 @@ watch(pickedDayFormat, () => {
   fetch('https://dev.bgitu-compass.ru/lessons?groupId=' + groupId + '&startAt=' + pickedDayFormat_new + '&endAt=' + pickedDayFormat_new)
     .then(response => response.json())
     .then(data => {
+      console.log("DATA===")
       console.log(data)
       for( let i = 0; i < data.length; i++ ) {
-        data[i]['subjectName'] = subjectsById[0].find(x => x.id === data[i]['subjectId']).name
+        data[i]['subjectName'] = subjectsById.value[0].find(x => x.id === data[i]['subjectId']).name
       }
       data.sort(function(a, b) {
           return a['startAt'].split(":")[0] - b['startAt'].split(":")[0]
@@ -240,7 +248,7 @@ watch(pickedDayFormat, () => {
         </v-tab>
       </v-tabs>
       <v-window v-model="pickedDayFormat">
-        <v-window-item v-for="day in daysOfWeek.get(pickedWeek)" :key="getEnDate(day)" :value="getEnDate(day)">
+        <v-window-item v-for="day in daysOfWeek.get(pickedWeek)" :key="getEnDate(day)" :value="getEnDate(day)" transition="false">
         
 
           <v-card class="scheduleCard mx-auto" variant="text">
@@ -253,7 +261,7 @@ watch(pickedDayFormat, () => {
               type="list-item-two-line"
             ></v-skeleton-loader>
 
-          <v-scroll-y-reverse-transition v-for="(lesson, i) in lessons" :key="i"> 
+          <v-scroll-y-reverse-transition v-for="(lesson, i) in lessons" :key="i" hide-on-leave="true"> 
             <ScheduleLessonCard v-show="!loading" v-model="lessons[i]"/>
           </v-scroll-y-reverse-transition>
           
