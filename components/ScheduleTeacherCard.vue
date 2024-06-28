@@ -35,7 +35,7 @@
     </v-card>
   </template>
 
-<style>
+<style scoped>
 .subjectName {
     line-height: 1.5em;
     max-height: 3em;       /* height is 2x line-height, so two lines will display */
