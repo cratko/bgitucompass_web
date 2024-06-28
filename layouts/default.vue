@@ -59,11 +59,6 @@ nuxtApp.hook("page:finish", () => {{
 
 }});
 
-const groupId = useCookie('groupId');
-groupId.value = '77';
-setTimeout(() => {      
-                    loading.value = false;
-                    }, preloader_delay);
 </script>
 
 <template>
