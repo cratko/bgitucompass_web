@@ -155,16 +155,7 @@ watch(pickedWeek,  (newWeek, oldWeek) => {
 let subjectsById = ref([])
 let groupId = useCookie('groupId').value;
 
-function getGroupId() {
-  useCookie('groupId').value;
-}
 
-while (typeof groupId == 'undefined' && useCookie('noGroupCookie').value != "true") {
-  groupId = useCookie('groupId').value;
-  setTimeout(() => {      
-
-                    }, 250);
-}
 
 console.log(groupId)
 let loading_lessons = ref(true);
