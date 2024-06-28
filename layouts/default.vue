@@ -39,6 +39,7 @@ nuxtApp.hook("page:finish", () => {{
                     loading.value = false;
                     }, preloader_delay);
                 } else {
+
                     noGroup.value = true;
                 }
 
@@ -47,6 +48,9 @@ nuxtApp.hook("page:finish", () => {{
 
         
         } catch {
+            const noGroupCookie = useCookie('noGroupCookie');
+            noGroupCookie.value = 'true';
+
             noGroup.value = true;
         }
         

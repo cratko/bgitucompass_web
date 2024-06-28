@@ -159,7 +159,7 @@ function getGroupId() {
   useCookie('groupId').value;
 }
 
-while (typeof groupId == 'undefined') {
+while (typeof groupId == 'undefined' && useCookie('noGroupCookie').value != "true") {
   groupId = useCookie('groupId').value;
   setTimeout(() => {      
 
