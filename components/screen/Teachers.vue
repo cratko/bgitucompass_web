@@ -3,6 +3,7 @@
       <v-container>
         <v-text-field v-model="teacherInput" label="Фамилия преподавателя" />
         <v-date-input
+        readonly="true"
           label="Дата"
           prepend-icon=""
           prepend-inner-icon="$calendar"
