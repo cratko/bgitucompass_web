@@ -3,7 +3,7 @@
       <v-container>
         <v-text-field v-model="teacherInput" label="Фамилия преподавателя" />
         <v-date-input
-        readonly="true"
+          readonly="true"
           label="Дата"
           prepend-icon=""
           prepend-inner-icon="$calendar"
@@ -141,7 +141,7 @@
 }
 
 .v-expansion-panel-text__wrapper {
-    padding: 0
+    padding: 0px
 }
 
 .v-expansion-panel-text {
