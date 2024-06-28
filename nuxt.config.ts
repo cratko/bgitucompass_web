@@ -29,6 +29,9 @@ export default defineNuxtConfig({
       script: [
         {
           src: "/js/telegram-web-app.js",
+          compilerOptions: {
+            isCustomElement: (tag) => ['v-date-input'].includes(tag),
+          }
         },
       ],
     },

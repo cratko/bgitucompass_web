@@ -28,15 +28,7 @@
   
           <p class="navbar_title">преподаватели</p>
         </v-btn>
-  
-        <v-btn 
-        variant="plain" 
-        :disabled="2==model"
-        v-ripple.center>
-          <v-icon>mdi-account-circle</v-icon>
-  
-          <p class="navbar_title">профиль</p>
-        </v-btn>
+
       </v-bottom-navigation>
     </v-layout>
   </template>
