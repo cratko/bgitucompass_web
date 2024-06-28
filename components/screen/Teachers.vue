@@ -125,7 +125,7 @@
 
 <style>
 .v-app-scoped {
-    max-height: 75vh;
+    max-height: 92vh;
 }
 
 .wrapper-scoped {
