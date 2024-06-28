@@ -122,12 +122,16 @@
   </script>
 
 
-<style scoped>
+<style>
 .v-app-scoped {
     max-height: 75vh;
 }
 
 .wrapper-scoped {
     padding: 0;
+}
+
+.v-date-picker-controls {
+    display: none;
 }
 </style>
