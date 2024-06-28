@@ -22,7 +22,7 @@ const loading = defineModel();
         v-for="i in navigations" 
         value="activeTab">
             <KeepAlive>
-                <component :is="navigations[activeTab]"/>
+                <component :is="navigations[activeTab]" v-if="!loading"/>
             </KeepAlive>
         </v-tabs-window-item>
     </v-tabs-window>
