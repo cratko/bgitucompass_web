@@ -48,7 +48,6 @@ nuxtApp.hook("page:finish", () => {{
         
         } catch {
             noGroup.value = true;
-            noGroup.value = false;
         }
         
 
