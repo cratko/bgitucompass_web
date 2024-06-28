@@ -135,4 +135,16 @@
 .v-date-picker-controls {
     display: none;
 }
+
+.v-date-picker-month__weekday {
+ display: none;
+}
+
+.v-expansion-panel-text__wrapper {
+    padding: 0
+}
+
+.v-expansion-panel-text {
+    padding: 0
+}
 </style>
