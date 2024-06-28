@@ -161,6 +161,9 @@ function getGroupId() {
 
 while (typeof groupId == 'undefined') {
   groupId = useCookie('groupId').value;
+  setTimeout(() => {      
+
+                    }, 250);
 }
 
 console.log(groupId)
