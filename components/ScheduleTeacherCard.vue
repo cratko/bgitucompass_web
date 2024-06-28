@@ -10,7 +10,7 @@
 
 </script>
 <template>
-    <v-card class="mx-2 mt-4 mr-md-20 rounded-xl" variant="tonal">
+    <v-card class="mx-2 mt-2 mr-md-20 rounded-xl" variant="tonal">
 
       <v-card-text>
         <div class="d-flex justify-space-between">
@@ -44,6 +44,10 @@
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;  
     max-width: 20vw;
+}
+
+.v-card-text {
+  padding: 0.6rem
 }
 
 .startTime {
