@@ -76,7 +76,7 @@ nuxtApp.hook("page:finish", () => {{
     <transition>
         <Preloader v-if="loading"></Preloader>
       </transition> 
-    <NuxtPage v-model="loading" v-if="!loading"/>
+    <NuxtPage v-model="loading"/>
     
 </template>
 
