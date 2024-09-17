@@ -16,13 +16,13 @@ const loading = defineModel();
 <template>
     <v-tabs-window 
     v-model="activeTab"
-    v-show="!loading"
+    v-if="!loading"
     >
         <v-tabs-window-item 
         v-for="i in navigations" 
         value="activeTab">
             <KeepAlive>
-                <component :is="navigations[activeTab]" v-if="!loading"/>
+                <component :is="navigations[activeTab]"/>
             </KeepAlive>
         </v-tabs-window-item>
     </v-tabs-window>
