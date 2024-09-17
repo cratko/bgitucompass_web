@@ -24,6 +24,9 @@ let noGroup = ref(false);
 nuxtApp.hook("page:finish", () => {{
     try {
         const tg = window.Telegram.WebApp;
+
+        const tgSafe = window.Telegram.initData;
+        console.log(tgSafe)
         tg.expand()
         try{
             const userId = tg.initDataUnsafe.user.id;

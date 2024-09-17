@@ -215,10 +215,6 @@ watch(pickedDayFormat, () => {
     setTimeout(() => {      
             loading_lessons.value = false;
         }, 500);
-    /*
-    for(let i = 0; i < data.length; i++) {
-      data[i]['subjectName'] = subjectsById[0].find(x => x.id === data[i]['subjectId']).name
-    }*/
 
     
 }, { immediate: true })
